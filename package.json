@@ -1,0 +1,29 @@
+{
+  "name": "members-only",
+  "version": "1.0.0",
+  "description": "members only project for authentication practice",
+  "main": "index.js",
+  "scripts": {
+    "devstart": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreySkopintsev/node-members-only.git"
+  },
+  "keywords": [
+    "authentication",
+    "odin"
+  ],
+  "author": "Skopintsev A.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreySkopintsev/node-members-only/issues"
+  },
+  "homepage": "https://github.com/AndreySkopintsev/node-members-only#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0",
+    "nodemon": "^2.0.4"
+  }
+}
