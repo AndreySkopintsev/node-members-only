@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+    h1= title
+
+    form(action="" method="POST")
+        div(class='form')
+            label(for="first") #[strong First name]:
+            input#first(type='text' placeholder='First name' name='firstname')
+            label(for='last') #[strong Last name]:
+            input(type="text" placeholder='Last name' name='lastname')
+            label(for="username") #[strong Email]:
+            input(type="text" placeholder='example@email.com' name='username')
+            label(for="password") #[strong Password]:
+            input(type="password" name='password')
+            button(type='submit') Sign Up
