@@ -2,14 +2,50 @@ const express = require('express')
 const membersRouter = express.Router()
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
 
-//Get home page
+
+//PASSPORT FUNCTIONS
+
+//LocalStrategy
+passport.use(
+    new LocalStrategy((username,password,done)=>{
+        User.findOne({username:username},(err,user)=>{
+            if(err){return done(err)}
+            if(!user){
+                return done(null,false,{msg:'Incorrect email'})
+            }
+            bcrypt.compare(password,user.password,(err,res)=>{
+                if(res){
+                    return done(null,user)
+                }else{
+                    return done(null,false<{msg:'Incorrect password'})
+                }
+                
+            })
+        })
+        
+    })
+)
+
+passport.serializeUser(function(user,done){
+    done(null,user.id)
+})
+
+passport.deserializeUser(function(id,done){
+    User.findById(id,function(err,user){
+        done(err,user)
+    })
+})
+
+//GET home page
 membersRouter.get('/home',(req,res)=>{
-    res.render('home_page',{title:'Home Page'})
+    res.render('home_page',{title:'Home Page',user:req.user})
 })
 
 
-//Get request for sign up page
+//GET request for sign up page
 membersRouter.get('/signup',(req,res)=>{
     res.render('sign_up',{title:'Sign Up'})
 })
@@ -32,5 +68,16 @@ membersRouter.post('/signup',(req,res)=>{
         res.redirect('/membersOnly/home')
     })
 })
+
+//GET log in page
+membersRouter.get('/login',(req,res)=>{
+    res.render('log_in',{title:'Log in'})
+})
+
+//POST request
+membersRouter.post('/login',passport.authenticate('local',{
+    successRedirect:'/membersOnly/home',
+    failureRedirect:'/membersOnly/login'
+}))
 
 module.exports = membersRouter

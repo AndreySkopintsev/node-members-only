@@ -2,6 +2,11 @@ extends layout
 
 block content
 
-    h1= title
+    if user
+        h1= title
 
-    p Welcome to our site
+        p Welcome back, #{user.fullName}!
+    else
+        h1= title
+
+        p Welcome to our site, please log in or sign up

@@ -1,0 +1,13 @@
+extends layout 
+
+block content
+
+    h1= title
+
+    form(action="" method="POST")
+        div(class="form")
+            label(for="username") #[strong Email]:
+            input(type="text" placeholder="example@email.com" name="username")
+            label(for="password") #[strong Password]:
+            input(type="password" name="password")
+            button(type="submit") Log in
