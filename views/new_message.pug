@@ -1,0 +1,15 @@
+extends layout 
+
+block content
+
+    h1= title
+
+    p Hello, #{user.fullName}! Would you like to leave a message?
+
+    form(action="" method="POST")
+        div(class="form")
+            label(for="title") #[strong Title]:
+            input#title(type="text" placeholder="Title" name="title")
+            label(for="text") #[strong Text]:
+            textarea#text(type="text" placeholder="Text" name="text" cols="40" rows="5")
+            button(type="submit") Send message

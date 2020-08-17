@@ -1,6 +1,7 @@
 const express = require('express')
 const membersRouter = express.Router()
 const User = require('../models/userModel')
+const Message = require('../models/messageModel')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
@@ -79,5 +80,31 @@ membersRouter.post('/login',passport.authenticate('local',{
     successRedirect:'/membersOnly/home',
     failureRedirect:'/membersOnly/login'
 }))
+
+//GET new message form
+membersRouter.get('/newMessage/:id',(req,res)=>{
+    User.findById(req.params.id)
+    .exec(function(err,user){
+        if(err){return next(err)}
+        res.render('new_message',{title:'New message',user:user})
+    })
+    
+})
+
+//POST request new mesage form
+membersRouter.post('/newMessage/:id',(req,res)=>{
+    let message = new Message({
+        title:req.body.title,
+        text:req.body.text,
+        user:req.params.id,
+        date: new Date()
+    })
+
+    message.save(err => {
+        if(err){return next(err)}
+        
+    })
+    res.redirect('/membersOnly/home')
+})
 
 module.exports = membersRouter

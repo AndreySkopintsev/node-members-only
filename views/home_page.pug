@@ -6,6 +6,10 @@ block content
         h1= title
 
         p Welcome back, #{user.fullName}!
+
+        a(href=`/membersOnly/newMessage/${user.id}`) Create new message
+
+        
     else
         h1= title
 
