@@ -9,8 +9,20 @@ block content
 
         a(href=`/membersOnly/newMessage/${user.id}`) Create new message
 
-        
+        each message in messages
+            div.messageBox
+                h4 #{message.title}
+                p #{message.text}
+                p Author: #{message.user.fullName}
+                p Date: #{message.date}
+
     else
         h1= title
 
         p Welcome to our site, please log in or sign up
+
+        each message in messages
+            div.messageBox
+                h4 #{message.title}
+                p #{message.text}
+    

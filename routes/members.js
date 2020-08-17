@@ -42,7 +42,12 @@ passport.deserializeUser(function(id,done){
 
 //GET home page
 membersRouter.get('/home',(req,res)=>{
-    res.render('home_page',{title:'Home Page',user:req.user})
+    Message.find()
+    .populate('user')
+    .exec(function(err,messages){
+        if(err){return next(err)}
+        res.render('home_page',{title:'Home Page',user:req.user,messages:messages})
+    })
 })
 
 
