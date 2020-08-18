@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -10,7 +11,7 @@ const mongoose = require('mongoose')
 const homeRouter = require('./routes/home')
 const membersRouter = require('./routes/members')
 
-const mongoUrl = 'mongodb+srv://andrew:andrew123@my-database-vydwb.mongodb.net/user_authentication?retryWrites=true&w=majority'
+const mongoUrl = process.env.mongoUrl
 
 mongoose.connect(mongoUrl,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(res => {
@@ -28,7 +29,7 @@ app.set('view engine','pug')
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: process.env.session, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));

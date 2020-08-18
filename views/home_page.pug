@@ -9,7 +9,10 @@ block content
         if !user.status
             p You can become a member if you follow this #[a(href=`/membersOnly/becomeMember/${user.id}`) link]
         else
-            p You're a member.
+            if !user.admin
+                p You're a member.
+            else 
+                p You're an admin.
 
         a(href=`/membersOnly/newMessage/${user.id}`) Create new message
 
@@ -20,6 +23,8 @@ block content
                 if user.status
                     p Author: #{message.user.fullName}
                     p Date: #{message.prettydate}
+                    if user.admin
+                        a#deleteMsg(href=`/membersOnly/deleteMessage/${message.user.id}`) Delete message
 
     else
         h1= title
