@@ -24,7 +24,7 @@ block content
                     p Author: #{message.user.fullName}
                     p Date: #{message.prettydate}
                     if user.admin
-                        a#deleteMsg(href=`/membersOnly/deleteMessage/${message.user.id}`) Delete message
+                        a#deleteMsg(href=`/membersOnly/deleteMessage/${message.id}`) Delete message
 
     else
         h1= title

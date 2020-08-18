@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+    h1= title
+
+    p Are you sure you want to delete the message from #{message.prettydate} by #{message.user.fullName}?
+
+    form(action="" method="POST")
+        input(type="hidden" name="messageid" value=`${message.id}`)
+        button(type="submit") Delete message

@@ -171,10 +171,21 @@ membersRouter.get('/logout',(req,res)=>{
 
 //GET request to delete message page
 membersRouter.get('/deleteMessage/:id',(req,res)=>{
-    res.render('delete_page',{title:'Delete message'})
+    Message.findById(req.params.id)
+    .populate('user')
+    .exec((err,result)=>{
+        if(err){return next(err)}
+        res.render('delete_message',{title:'Delete message',message:result})
+    })
 })
 
 //POST request to delete message page
-
+membersRouter.post('/deleteMessage/:id',(req,res)=>{
+    Message.findByIdAndRemove(req.body.messageid)
+    .exec((err,result)=>{
+        if(err){return next(err)}
+        res.redirect('/membersOnly/home')
+    })
+})
 
 module.exports = membersRouter
