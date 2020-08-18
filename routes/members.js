@@ -137,4 +137,10 @@ membersRouter.post('/becomeMember/:id',(req,res)=>{
     }
 })
 
+//GET request to log out page
+membersRouter.get('/logout',(req,res)=>{
+    req.logout()
+    res.redirect('/membersOnly/home')
+})
+
 module.exports = membersRouter

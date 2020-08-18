@@ -6,9 +6,10 @@ block content
         h1= title
 
         p Welcome back, #{user.fullName}!
-
-        p You can become a member if you follow this #[a(href=`/membersOnly/becomeMember/${user.id}`) link]
-        
+        if !user.status
+            p You can become a member if you follow this #[a(href=`/membersOnly/becomeMember/${user.id}`) link]
+        else
+            p You're a member.
 
         a(href=`/membersOnly/newMessage/${user.id}`) Create new message
 
@@ -18,7 +19,7 @@ block content
                 p #{message.text}
                 if user.status
                     p Author: #{message.user.fullName}
-                    p Date: #{message.date}
+                    p Date: #{message.prettydate}
 
     else
         h1= title
