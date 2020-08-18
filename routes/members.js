@@ -112,4 +112,29 @@ membersRouter.post('/newMessage/:id',(req,res)=>{
     res.redirect('/membersOnly/home')
 })
 
+//GET request become a member page
+membersRouter.get('/becomeMember/:id',(req,res)=>{
+    User.findById(req.params.id)
+    .exec((err,user)=>{
+        if(err){return next(err)}
+        res.render('become_member.pug',{title:'Become a member',user:user})
+    })
+
+})
+
+//POST request to become a member page
+membersRouter.post('/becomeMember/:id',(req,res)=>{
+    if(req.body.secret === 'secretword'){
+        User.findByIdAndUpdate(req.params.id,{status:true})
+        .exec((err,result)=>{
+            if(err){return next(err)}
+            console.log(result)
+            res.redirect('/membersOnly/home')
+        })
+    }else{
+        console.log('wrong secret word')
+        res.redirect('/membersOnly/home')
+    }
+})
+
 module.exports = membersRouter

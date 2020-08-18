@@ -7,14 +7,18 @@ block content
 
         p Welcome back, #{user.fullName}!
 
+        p You can become a member if you follow this #[a(href=`/membersOnly/becomeMember/${user.id}`) link]
+        
+
         a(href=`/membersOnly/newMessage/${user.id}`) Create new message
 
         each message in messages
             div.messageBox
                 h4 #{message.title}
                 p #{message.text}
-                p Author: #{message.user.fullName}
-                p Date: #{message.date}
+                if user.status
+                    p Author: #{message.user.fullName}
+                    p Date: #{message.date}
 
     else
         h1= title

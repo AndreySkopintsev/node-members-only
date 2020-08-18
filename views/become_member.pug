@@ -1,0 +1,13 @@
+extends layout 
+
+block content
+
+    h1= title
+
+    p Hello, #{user.fullName}! To become a member, please enter a secret code down below
+
+    form(action="" method="POST")
+        div(class="form")
+            input#secret(type="password" name="secret")
+            input#userid(type="hidden" name="userid" value=`${user.id}`)
+            button(type="submit") Verify
